@@ -5,3 +5,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@font-face {
+  font-family: mouse;
+  src: url("./assets/fonts/MouseMemoirs-Regular.ttf");
+}
+
+@font-face {
+  font-family: nip;
+  src: url("./assets/fonts/NotoSerifJP-Regular.otf");
+}
