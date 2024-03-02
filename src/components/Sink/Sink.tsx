@@ -25,5 +25,9 @@ export default function Sink(props: Props) {
     setTimeout(() => navigate(props.page.href), props.delay * 1000);
   }
 
-  return <SCSink href={props.page.href} onClick={handle_click}></SCSink>;
+  return (
+    <SCSink href={props.page.href} onClick={handle_click}>
+      {props.children}
+    </SCSink>
+  );
 }

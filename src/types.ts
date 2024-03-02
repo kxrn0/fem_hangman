@@ -21,5 +21,5 @@ export const pages = {
 
 export type Page = {
   name: string;
-  href: "string";
+  href: string;
 };
