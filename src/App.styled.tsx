@@ -7,6 +7,7 @@ const SCApp = styled("div")`
   --light-blue: 60, 116, 255;
   --lighter-blue: 91, 138, 255;
   /* --very-light-blue: 113, 153, 255; */
+  --lavender: 136, 125, 192;
   --pink: 254, 113, 254;
   --dark-pink: 198, 66, 251;
   --duration: 0.33s;
@@ -14,32 +15,17 @@ const SCApp = styled("div")`
   --y: 0;
   --time-scale: 1;
 
-  .byme {
-    background: red;
-    width: 100px;
-    height: 500px;
-  }
-
-  .sxaron {
-    --time-scale: 3;
-    --x: 500px;
-
-    background-color: red;
-
-    .content {
-      background-color: yellow;
-      width: 200px;
-      height: 500px;
-    }
-  }
-
-  .red {
-    background-color: red;
-  }
+  position: relative;
+  overflow-x: hidden;
 
   .background {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+
     img {
-      position: absolute;
+      position: relative;
+      display: block;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -57,14 +43,44 @@ const SCApp = styled("div")`
 
   .fs-xl {
     font-size: 136px;
+
+    @media screen and (max-width: 1000px) {
+      font-size: 104px;
+      line-height: 125px;
+      letter-spacing: -5px;
+    }
+
+    @media screen and (max-width: 600px) {
+      font-size: 48px;
+      line-height: 58px;
+      letter-spacing: 2.5px;
+    }
   }
 
   .fs-l {
     font-size: 88px;
+
+    @media screen and (max-width: 700px) {
+      font-size: 24px;
+      line-height: 29px;
+      letter-spacing: 1px;
+    }
   }
 
   .fs-m {
     font-size: 48px;
+
+    @media screen and (max-width: 1250px) {
+      font-size: 40px;
+      line-height: 48px;
+      letter-spacing: 2px;
+    }
+
+    @media screen and (max-width: 700px) {
+      font-size: 24px;
+      line-height: 29px;
+      letter-spacing: 1px;
+    }
   }
 
   .fs-s {
@@ -73,6 +89,40 @@ const SCApp = styled("div")`
 
   .fs-body {
     font-size: 26px;
+
+    @media screen and (max-width: 1250px) {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: 1px;
+    }
+
+    @media screen and (max-width: 700px) {
+      font-size: 16px;
+      line-height: 19px;
+      letter-spacing: 1px;
+    }
+  }
+
+  .gradient-text {
+    position: relative;
+    display: grid;
+    grid-template-areas: "stack";
+
+    > * {
+      grid-area: stack;
+    }
+
+    .shadow {
+      -webkit-text-stroke: 20px #243041;
+    }
+
+    .text {
+      background: linear-gradient(#67b6ff, white);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+    }
   }
 
   .bordered {
@@ -263,16 +313,112 @@ const SCApp = styled("div")`
     }
   }
 
+  .back-button {
+    background: linear-gradient(#fe71fe, #7199ff);
+    width: 94px;
+    height: 94px;
+    border-radius: 100%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding-bottom: 10px;
+
+    img {
+      width: 41px;
+
+      @media screen and (max-width: 1000px) {
+        width: 28px;
+      }
+
+      @media screen and (max-width: 600px) {
+        width: 18px;
+      }
+    }
+
+    .screen,
+    .borders {
+      position: absolute;
+      inset: 0;
+      border-radius: 100%;
+    }
+
+    .screen {
+      background-color: white;
+      opacity: 0;
+      transition: opacity var(--duration);
+
+      @media (hover: hover) {
+        &:hover {
+          opacity: 0.25;
+        }
+      }
+    }
+
+    .borders {
+      box-shadow: inset 0 -6px 0 7px rgb(157, 45, 245, 0.25);
+      pointer-events: none;
+
+      @media screen and (max-width: 600px) {
+        box-shadow: inset 0 -5px 0 0px rgb(157, 45, 245, 0.25);
+      }
+    }
+
+    @media screen and (max-width: 1000px) {
+      width: 64px;
+      height: 64px;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 40px;
+      height: 40px;
+      padding-bottom: 0;
+    }
+  }
+
+  .head {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+
+    .back-button {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(0, -50%);
+
+      @media screen and (max-width: 600px) {
+        position: static;
+        top: 0;
+        left: 0;
+        transform: translate(0, 0);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .invisible {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  /* anime */
+
   .anime-enter {
     transform: translate(var(--x), var(--y));
-    opacity: 0.5;
+    opacity: 0;
     filter: blur(5px);
     animation: enter-anime calc(var(--duration) * var(--time-scale)) forwards;
 
     @keyframes enter-anime {
       from {
         transform: translate(var(--x), var(--y));
-        opacity: 0.5;
+        opacity: 0;
         filter: blur(5px);
       }
 
@@ -285,6 +431,9 @@ const SCApp = styled("div")`
   }
 
   .anime-exit {
+    transform: translate(0, 0);
+    opacity: 1;
+    filter: blur(0);
     animation: exit-anime calc(var(--duration) * var(--time-scale)) forwards;
 
     @keyframes exit-anime {

@@ -6,9 +6,8 @@ const SCStart = styled("div")`
   min-height: 100vh;
 
   .container {
-    --x: 0;
-    --y: -100px;
-    --time-scale: 2;
+    --y: -75vh;
+    --time-scale: 3;
     background: linear-gradient(rgb(52, 74, 186, 0.9), rgb(0, 20, 121, 0.9));
     box-shadow: inset 0 -8px 0 4px #140e66, inset 0 6px 0 9px #2463ff;
     border-radius: 72px;
@@ -20,6 +19,10 @@ const SCStart = styled("div")`
     gap: 58px;
     position: relative;
     padding-top: 130px;
+
+    &.anime-exit {
+      --time-scale: 2;
+    }
 
     .logo {
       position: absolute;
