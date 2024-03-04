@@ -33,6 +33,18 @@ const SCApp = styled("div")`
     }
   }
 
+  .gradient {
+    background: linear-gradient(#1a043a, #151278 70%, #2b1677);
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity var(--duration);
+
+    &.active {
+      opacity: .75;
+    }
+  }
+
   .fam-mouse {
     font-family: mouse;
   }
@@ -44,13 +56,13 @@ const SCApp = styled("div")`
   .fs-xl {
     font-size: 136px;
 
-    @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1200px) {
       font-size: 104px;
       line-height: 125px;
       letter-spacing: -5px;
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 650px) {
       font-size: 48px;
       line-height: 58px;
       letter-spacing: 2.5px;
@@ -114,6 +126,10 @@ const SCApp = styled("div")`
 
     .shadow {
       -webkit-text-stroke: 20px #243041;
+
+      @media screen and (max-width: 650px) {
+        -webkit-text-stroke: 10px #243041;
+      }
     }
 
     .text {

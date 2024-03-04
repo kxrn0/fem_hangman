@@ -11,10 +11,6 @@ const SCInstructions = styled("div")`
   .head {
     --y: -25vh;
     --time-scale: 2;
-
-    &.anime-exit {
-      --time-scale: 1;
-    }
   }
 
   .instructions {
@@ -69,6 +65,10 @@ const SCInstructions = styled("div")`
               animation-delay: 0s;
             }
           }
+
+          @media screen and (max-width: 1250px) {
+            animation-delay: 0s;
+          }
         }
       }
 
@@ -95,7 +95,13 @@ const SCInstructions = styled("div")`
   }
 
   @media screen and (max-width: 1000px) {
-    padding: 61px 40px;
+    gap: 100px;
+    padding: 60px 40px;
+  }
+
+  @media screen and (max-width: 600px) {
+    gap: 80px;
+    padding: 32px 26px;
   }
 `;
 

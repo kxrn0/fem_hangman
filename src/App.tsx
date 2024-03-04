@@ -5,12 +5,16 @@ import bgTablet from "./assets/images/background-tablet.svg";
 import bgMobile from "./assets/images/background-mobile.svg";
 import { JSX } from "solid-js";
 import { PageContextProvider } from "./context/Page";
+import { useMatch } from "@solidjs/router";
+import { pages } from "./types";
 
 type Props = {
   children?: JSX.Element;
 };
 
 function App(props: Props) {
+  const matches = useMatch(() => pages.start.href);
+
   return (
     <PageContextProvider>
       <SCApp>
@@ -22,6 +26,7 @@ function App(props: Props) {
             alt="background image of a starry sky and mountains in the distance"
           />
         </picture>
+        <div class="gradient" classList={{ active: !matches() }}></div>
         {props.children}
       </SCApp>
     </PageContextProvider>

@@ -14,9 +14,7 @@ export default function Point(props: Props) {
   const [observer, setObserver] = createSignal<IntersectionObserver>();
 
   function set_observer(element: HTMLElement) {
-    const observer = get_observer(element, setIsVisible, 1, false);
-
-    console.log(element);
+    const observer = get_observer(element, setIsVisible, .5, false);
 
     setObserver(observer);
   }

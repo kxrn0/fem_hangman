@@ -1,3 +1,4 @@
+import { For } from "solid-js";
 import iconBack from "../../assets/images/icon-back.svg";
 import Sink from "../../components/Sink/Sink.tsx";
 import { usePageContext } from "../../context/Page.tsx";
@@ -48,9 +49,9 @@ export default function Instructions() {
         </div>
       </div>
       <div class="instructions">
-        {instructions.map((instruction) => (
-          <Point {...instruction} isOut={!isCurrent()} />
-        ))}
+        <For each={instructions}>
+          {(truck) => <Point {...truck} isOut={!isCurrent()} />}
+        </For>
       </div>
     </SCInstructions>
   );

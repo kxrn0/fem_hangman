@@ -10,10 +10,6 @@ export default function Start() {
   const [page, setPage, delay] = usePageContext();
   const isCurrent = () => pages.start.name === page().name;
   const actualDelay = delay * 2;
-  const byme = {
-    ...pages.instructions,
-    href: `${pages.instructions.href}?sxaron=byme`,
-  };
 
   onMount(() => {
     //reset the history
@@ -33,7 +29,7 @@ export default function Start() {
             <div class="borders"></div>
           </div>
         </Sink>
-        <Sink page={byme} delay={actualDelay} set_page={setPage}>
+        <Sink page={pages.instructions} delay={actualDelay} set_page={setPage}>
           <p class="button-one bordered fam-mouse fs-s">HOW TO PLAY</p>
         </Sink>
       </div>
