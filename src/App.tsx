@@ -1,36 +1,29 @@
-import SCApp from "./App.styled";
-
-import bgDesktop from "./assets/images/background-desktop.svg";
-import bgTablet from "./assets/images/background-tablet.svg";
-import bgMobile from "./assets/images/background-mobile.svg";
-import { JSX } from "solid-js";
-import { PageContextProvider } from "./context/Page";
-import { useMatch } from "@solidjs/router";
+import Start from "./pages/Start/Start";
+import Instructions from "./pages/Instructions/Instructions";
+import Categories from "./pages/Categories/Categories";
+import Game from "./pages/Game/Game";
 import { pages } from "./types";
+import { Router, Route, RouteSectionProps } from "@solidjs/router";
+import { createStore } from "solid-js/store";
+import { Component } from "solid-js";
 
 type Props = {
-  children?: JSX.Element;
+  root: Component<RouteSectionProps<unknown>>;
 };
 
-function App(props: Props) {
-  const matches = useMatch(() => pages.start.href);
+export default function App(props: Props) {
+  const [seen, setSeen] = createStore<string[]>([]);
 
   return (
-    <PageContextProvider>
-      <SCApp>
-        <picture class="background">
-          <source srcset={bgDesktop} media="(min-width: 1000px)" />
-          <source srcset={bgTablet} media="(min-width: 700px)" />
-          <img
-            src={bgMobile}
-            alt="background image of a starry sky and mountains in the distance"
-          />
-        </picture>
-        <div class="gradient" classList={{ active: !matches() }}></div>
-        {props.children}
-      </SCApp>
-    </PageContextProvider>
+    <Router root={props.root}>
+      <Route path={pages.start.href} component={Start} />
+      <Route path={pages.instructions.href} component={Instructions} />
+      <Route path={pages.categories.href} component={Categories} />
+      <Route
+        path={pages.game.href}
+        component={() => <Game seen={seen} set_seen={setSeen} />}
+      />
+      <Route path={"*"} component={() => <p>404</p>} />
+    </Router>
   );
 }
-
-export default App;

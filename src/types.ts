@@ -23,3 +23,11 @@ export type Page = {
   name: string;
   href: string;
 };
+
+export type Category =
+  | "countries"
+  | "history"
+  | "medicine"
+  | "geography"
+  | "manga"
+  | "chemistry";

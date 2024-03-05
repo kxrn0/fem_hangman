@@ -317,3 +317,5 @@ const categories = {
     "還元環化反応",
   ],
 };
+
+export default categories;

@@ -1,13 +1,13 @@
-function randomJapaneseCharacter() {
-    const ranges = [
-        [0x3041, 0x3096], // Hiragana
-        [0x30A0, 0x30FF], // Katakana
-        [0x4E00, 0x9FFF]  // Kanji
-    ];
+import random from "./random";
 
-    const [min, max] = ranges[~~(Math.random() * ranges.length)];
+export default function random_nip() {
+  const ranges = [
+    [0x3041, 0x3096], // Hiragana
+    [0x30a0, 0x30ff], // Katakana
+    [0x4e00, 0x9fff], // Kanji
+  ];
+  const [min, max] = ranges[~~random(0, ranges.length)];
+  const codePoint = ~~random(min, max);
 
-    const codePoint = ~~(Math.random() * (max - min + 1)) + min;
-
-    return String.fromCodePoint(codePoint);
+  return String.fromCodePoint(codePoint);
 }
