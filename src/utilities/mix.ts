@@ -1,4 +1,5 @@
 import random from "./random";
+import make_unique from "./make_unique";
 
 export default function mix(str: string, size: number, rndc: () => string) {
   const mixed = [];

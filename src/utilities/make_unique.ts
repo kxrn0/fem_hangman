@@ -1,4 +1,4 @@
-function make_unique(arr: string[]) {
+export default function make_unique(arr: string[]) {
   const obj: Record<string, boolean> = {};
   const uniques = [];
 
