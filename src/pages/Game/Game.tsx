@@ -1,4 +1,4 @@
-import { Accessor, For, createSignal, onMount } from "solid-js";
+import { For, createSignal, onMount } from "solid-js";
 import SCGame from "./Game.styled.tsx";
 import { SetStoreFunction, createStore } from "solid-js/store";
 import { useSearchParams } from "@solidjs/router";
@@ -79,9 +79,7 @@ export default function Game(props: Props) {
 
   return (
     <SCGame>
-      <p class="sxarp" style={`color: azure`}>
-        {target.word}
-      </p>
+      <p style={`color: azure`}>{target.word}</p>
       <nav class="navbar">
         <button>open menu</button>
         <p>{params.category || "countries"}</p>
