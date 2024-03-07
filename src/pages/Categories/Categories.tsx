@@ -23,7 +23,7 @@ export default function Categories() {
     <SCCategories>
       <div class="head anime-enter" classList={{ "anime-exit": !isCurrent() }}>
         <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
-          <div class="back-button">
+          <div class="nav-button">
             <img src={iconBack} alt="back" />
             <div class="screen"></div>
             <div class="borders"></div>

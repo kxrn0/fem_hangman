@@ -3,7 +3,7 @@ import SCDialog from "./Dialog.styled.tsx";
 
 type Props = {
   isOpen: boolean;
-  set_is_open?: (isOpen: boolean) => void;
+  set_is_open?: (isOpen?: boolean) => void;
   children: JSX.Element;
 };
 
@@ -23,7 +23,6 @@ export default function Dialog(props: Props) {
   onCleanup(() => window.removeEventListener("keydown", handle_escape));
 
   createEffect(() => {
-    console.log(props.isOpen);
     if (props.isOpen) setIsMounted(true);
   });
 

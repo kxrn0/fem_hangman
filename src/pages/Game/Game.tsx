@@ -3,11 +3,16 @@ import SCGame from "./Game.styled.tsx";
 import { SetStoreFunction, createStore } from "solid-js/store";
 import { useSearchParams } from "@solidjs/router";
 import categories from "../../category_data.ts";
-import { Category } from "../../types.ts";
+import { Category, pages } from "../../types.ts";
 import random from "../../utilities/random.ts";
 import mix from "../../utilities/mix.ts";
 import random_nip from "../../utilities/random_nip.ts";
 import Dialog from "../../components/Dialog/Dialog.tsx";
+import iconMenu from "../../assets/images/icon-menu.svg";
+import iconHeart from "../../assets/images/icon-heart.svg";
+import Card from "./Card/Card.tsx";
+import Sink from "../../components/Sink/Sink.tsx";
+import { usePageContext } from "../../context/Page.tsx";
 
 type Letter = {
   char: string;
@@ -33,7 +38,10 @@ export default function Game(props: Props) {
   });
   const [keys, setKeys] = createStore<Key[]>([]);
   const [lives, setLives] = createSignal(8);
+  const health = () => ((100 * lives()) / 8).toFixed(2);
   const [gameState, setGameState] = createSignal<GameState>("playing");
+  const [page, setPage, delay] = usePageContext();
+  const actualDelay = delay * 2;
   const [params] = useSearchParams();
 
   function init() {
@@ -51,7 +59,7 @@ export default function Game(props: Props) {
     }
 
     letters = word.split("").map((char) => ({ char, guessed: false }));
-    keys = mix(word, 27, random_nip).map((char) => ({ char, clicked: false }));
+    keys = mix(word, 30, random_nip).map((char) => ({ char, clicked: false }));
 
     setTarget({ word, letters });
     setKeys(keys);
@@ -79,16 +87,35 @@ export default function Game(props: Props) {
 
   return (
     <SCGame>
-      <p style={`color: azure`}>{target.word}</p>
+      <p style={`color: azure; position: fixed; top: 10px; right: 10px;`}>
+        {target.word}
+      </p>
       <nav class="navbar">
-        <button>open menu</button>
-        <p>{params.category || "countries"}</p>
-        <div class="health">lives: {lives()}</div>
+        <div class="left">
+          <button
+            class="nav-button"
+            aria-label="open menu"
+            onClick={() => setGameState("paused")}
+          >
+            <img src={iconMenu} alt="menu icon" />
+            <div class="screen"></div>
+            <div class="borders"></div>
+          </button>
+          <p class="fam-mouse fs-l">{params.category || "countries"}</p>
+        </div>
+        <div class="right" title={`${lives()}`}>
+          <div
+            class="bar"
+            aria-label={`health: ${health()}%`}
+            style={{ "--health": `${health()}%` }}
+          ></div>
+          <img src={iconHeart} alt="health" class="heart" />
+        </div>
       </nav>
       <div class="letters">
         <For each={target.letters}>
           {(letter) => (
-            <p class="playable-letter" classList={{ guessed: letter.guessed }}>
+            <p class="bordered letter" classList={{ guessed: letter.guessed }}>
               {letter.guessed ? letter.char : ""}
             </p>
           )}
@@ -107,6 +134,31 @@ export default function Game(props: Props) {
           )}
         </For>
       </div>
+      <Dialog
+        isOpen={gameState() === "paused"}
+        set_is_open={() => setGameState("playing")}
+      >
+        <Card title="Paused">
+          <div class="menu-items">
+            <button
+              class="button-one fam-mouse fs-s bordered"
+              onClick={() => setGameState("playing")}
+            >
+              CONTINUE
+            </button>
+            <Sink
+              page={pages.categories}
+              delay={actualDelay}
+              set_page={setPage}
+            >
+              <p class="button-one fam-mouse fs-s bordered">NEW CATEGORY</p>
+            </Sink>
+            <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+              <p class="button-two fam-mouse fs-s bordered">QUIT GAME</p>
+            </Sink>
+          </div>
+        </Card>
+      </Dialog>
       <Dialog isOpen={gameState() === "win" || gameState() === "lose"}>
         <p>you {gameState()}</p>
       </Dialog>

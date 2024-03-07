@@ -116,7 +116,7 @@ const SCRoot = styled("div")`
   }
 
   .gradient-text {
-    position: relative;
+    /* position: relative; */
     display: grid;
     grid-template-areas: "stack";
 
@@ -180,38 +180,6 @@ const SCRoot = styled("div")`
     --bg-hover: rgb(229, 155, 254);
     --inner-shadow: rgb(var(--dark-pink));
     --outer-shadow: rgb(var(--dark-blue));
-  }
-
-  .playable-letter {
-    --inner-shadow: rgb(var(--light-blue));
-    --outer-shadow: rgb(var(--dark-blue));
-    background: rgb(var(--blue));
-    color: white;
-    width: 115px;
-    height: 130px;
-    opacity: 0.25;
-    display: grid;
-    place-items: center;
-    border-radius: 40px;
-    font-size: 88px;
-    transition: background-color var(--duration), opacity var(--duration);
-
-    &.guessed {
-      background-color: rgb(var(--blue));
-      opacity: 1;
-    }
-
-    @media screen and (max-width: 1000px) {
-      font-size: 64px;
-      width: 90px;
-      height: 115px;
-    }
-
-    @media screen and (max-width: 700px) {
-      font-size: 40px;
-      width: 40px;
-      height: 65px;
-    }
   }
 
   .keyboard-letter {
@@ -329,11 +297,12 @@ const SCRoot = styled("div")`
     }
   }
 
-  .back-button {
+  .nav-button {
     background: linear-gradient(#fe71fe, #7199ff);
     width: 94px;
     height: 94px;
     border-radius: 100%;
+    border: none;
     position: relative;
     display: grid;
     place-items: center;
@@ -397,7 +366,7 @@ const SCRoot = styled("div")`
     position: relative;
     width: 100%;
 
-    .back-button {
+    .nav-button {
       position: absolute;
       top: 50%;
       left: 0;
