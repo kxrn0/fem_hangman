@@ -20,7 +20,7 @@ const SCRoot = styled("div")`
 
   .background {
     pointer-events: none;
-    position: absolute;
+    position: fixed;
     inset: 0;
 
     img {
@@ -30,12 +30,13 @@ const SCRoot = styled("div")`
       height: 100%;
       object-fit: cover;
       z-index: -1;
+      transition: height 2s;
     }
   }
 
   .gradient {
     background: linear-gradient(#1a043a, #151278 70%, #2b1677);
-    position: absolute;
+    position: fixed;
     inset: 0;
     opacity: 0;
     transition: opacity var(--duration);
@@ -116,7 +117,6 @@ const SCRoot = styled("div")`
   }
 
   .gradient-text {
-    /* position: relative; */
     display: grid;
     grid-template-areas: "stack";
 
@@ -180,39 +180,6 @@ const SCRoot = styled("div")`
     --bg-hover: rgb(229, 155, 254);
     --inner-shadow: rgb(var(--dark-pink));
     --outer-shadow: rgb(var(--dark-blue));
-  }
-
-  .keyboard-letter {
-    background: white;
-    color: rgb(var(--dark-navy));
-    width: 110px;
-    height: 85px;
-    font-size: 48px;
-    border-radius: 24px;
-    border: none;
-    transition: opacity var(--duration), background-color var(--duration),
-      color var(--duration);
-
-    &:disabled {
-      opacity: 0.25;
-    }
-
-    @media (hover: hover) {
-      &:not(:disabled):hover {
-        background: rgb(var(--blue));
-        color: white;
-      }
-    }
-
-    @media screen and (max-width: 1000px) {
-      width: 65px;
-    }
-
-    @media screen and (max-width: 700px) {
-      width: 30px;
-      height: 55px;
-      font-size: 24px;
-    }
   }
 
   .category-button {

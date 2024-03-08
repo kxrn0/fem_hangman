@@ -1,7 +1,7 @@
-import { For, createSignal, onMount } from "solid-js";
+import { For, createEffect, createSignal, onMount } from "solid-js";
 import SCGame from "./Game.styled.tsx";
 import { SetStoreFunction, createStore } from "solid-js/store";
-import { useSearchParams } from "@solidjs/router";
+import { useLocation, useSearchParams } from "@solidjs/router";
 import categories from "../../category_data.ts";
 import { Category, pages } from "../../types.ts";
 import random from "../../utilities/random.ts";
@@ -29,7 +29,7 @@ type Props = {
   set_seen: SetStoreFunction<string[]>;
 };
 
-type GameState = "playing" | "loading" | "paused" | "win" | "lose";
+type GameState = "playing" | "loading" | "paused" | "win" | "lose" | "out";
 
 export default function Game(props: Props) {
   const [target, setTarget] = createStore({
@@ -43,6 +43,8 @@ export default function Game(props: Props) {
   const [page, setPage, delay] = usePageContext();
   const actualDelay = delay * 2;
   const [params] = useSearchParams();
+  const location = useLocation();
+  const currentPage = pages.game;
 
   function init() {
     const categoryKey = (params.category as Category) || "countries";
@@ -65,6 +67,8 @@ export default function Game(props: Props) {
     setKeys(keys);
   }
 
+  function play_again() {}
+
   function select_key(char: string) {
     if (gameState() !== "playing") return;
 
@@ -81,6 +85,10 @@ export default function Game(props: Props) {
     }
   }
 
+  createEffect(() => {
+    if (page().name !== currentPage.name) setGameState("out");
+  });
+
   onMount(() => {
     init();
   });
@@ -90,7 +98,10 @@ export default function Game(props: Props) {
       <p style={`color: azure; position: fixed; top: 10px; right: 10px;`}>
         {target.word}
       </p>
-      <nav class="navbar">
+      <nav
+        class="navbar anime-enter"
+        classList={{ "anime-exit": currentPage.name !== page().name }}
+      >
         <div class="left">
           <button
             class="nav-button"
@@ -112,7 +123,10 @@ export default function Game(props: Props) {
           <img src={iconHeart} alt="health" class="heart" />
         </div>
       </nav>
-      <div class="letters">
+      <div
+        class="letters anime-enter"
+        classList={{ "anime-exit": currentPage.name !== page().name }}
+      >
         <For each={target.letters}>
           {(letter) => (
             <p class="bordered letter" classList={{ guessed: letter.guessed }}>
@@ -123,9 +137,11 @@ export default function Game(props: Props) {
       </div>
       <div class="keyboard">
         <For each={keys}>
-          {(key) => (
+          {(key, index) => (
             <button
-              class="keyboard-letter"
+              class="key anime-enter"
+              classList={{ "anime-exit": currentPage.name !== page().name }}
+              style={{ "--index": `${index()}` }}
               disabled={key.clicked}
               onClick={[select_key, key.char]}
             >
@@ -159,8 +175,49 @@ export default function Game(props: Props) {
           </div>
         </Card>
       </Dialog>
-      <Dialog isOpen={gameState() === "win" || gameState() === "lose"}>
-        <p>you {gameState()}</p>
+      <Dialog isOpen={gameState() === "win"}>
+        <Card title="You Win">
+          <div class="menu-items">
+            <button
+              class="button-one fam-mouse fs-s bordered"
+              onClick={play_again}
+            >
+              PLAY AGAIN!
+            </button>
+            <Sink
+              page={pages.categories}
+              delay={actualDelay}
+              set_page={setPage}
+            >
+              <p class="button-one fam-mouse fs-s bordered">NEW CATEGORY</p>
+            </Sink>
+            <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+              <p class="button-two fam-mouse fs-s bordered">QUIT GAME</p>
+            </Sink>
+          </div>
+        </Card>
+      </Dialog>
+      <Dialog isOpen={gameState() === "lose"}>
+        <Card title="You Lose">
+          <div class="menu-items">
+            <button
+              class="button-one fam-mouse fs-s bordered"
+              onClick={play_again}
+            >
+              PLAY AGAIN!
+            </button>
+            <Sink
+              page={pages.categories}
+              delay={actualDelay}
+              set_page={setPage}
+            >
+              <p class="button-one fam-mouse fs-s bordered">NEW CATEGORY</p>
+            </Sink>
+            <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+              <p class="button-two fam-mouse fs-s bordered">QUIT GAME</p>
+            </Sink>
+          </div>
+        </Card>
       </Dialog>
     </SCGame>
   );

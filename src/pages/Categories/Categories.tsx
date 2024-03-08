@@ -38,9 +38,7 @@ export default function Categories() {
       </div>
       <div class="categories">
         <For each={cats}>
-          {(cat, index) => (
-            <Category {...cat} isOut={!isCurrent()} index={`${index()}`} />
-          )}
+          {(cat, index) => <Category {...cat} index={`${index()}`} />}
         </For>
       </div>
     </SCCategories>

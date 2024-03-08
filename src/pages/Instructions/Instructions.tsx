@@ -49,9 +49,7 @@ export default function Instructions() {
         </div>
       </div>
       <div class="instructions">
-        <For each={instructions}>
-          {(truck) => <Point {...truck} isOut={!isCurrent()} />}
-        </For>
+        <For each={instructions}>{(truck) => <Point {...truck} />}</For>
       </div>
     </SCInstructions>
   );

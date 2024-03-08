@@ -1,10 +1,13 @@
 import { styled } from "solid-styled-components";
 
 const SCGame = styled("div")`
-min-height: 100vh;
+  min-height: 100vh;
   position: relative;
 
   .navbar {
+    --y: -50vh;
+    --time-scale: 2;
+
     color: white;
     display: flex;
     justify-content: space-between;
@@ -105,11 +108,17 @@ min-height: 100vh;
   }
 
   .letters {
+    --y: -25vh;
+    --time-scale: 3;
     padding: 30px 115px;
     display: flex;
     gap: 16px;
     flex-wrap: wrap;
     justify-content: center;
+
+    &.anime-exit {
+      --time-scale: 2;
+    }
 
     .letter {
       --inner-shadow: rgb(var(--light-blue));
@@ -139,8 +148,8 @@ min-height: 100vh;
 
       @media screen and (max-width: 700px) {
         font-size: 40px;
-        width: 40px;
-        height: 65px;
+        width: 50px;
+        height: 70px;
         border-radius: 12px;
       }
     }
@@ -152,17 +161,73 @@ min-height: 100vh;
 
     @media screen and (max-width: 700px) {
       gap: 8px;
+      padding: 32px 25px;
     }
   }
 
   .keyboard {
-    
-
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 24px;
     padding: 90px 135px;
+    overflow: hidden;
+
+    .key {
+      --y: 100%;
+      --time-scale: 1 / 5;
+      --index: 0;
+
+      background: white;
+      color: rgb(var(--dark-navy));
+      width: 110px;
+      height: 85px;
+      font-size: 48px;
+      border-radius: 24px;
+      border: none;
+      animation-delay: calc(var(--time-scale) * var(--duration) * var(--index));
+      transition: opacity var(--duration), background-color var(--duration),
+        color var(--duration);
+
+      &:not(.anime-exit):disabled {
+        opacity: 0.25 !important;
+      }
+
+      &.anime-exit {
+        --time-scale: 2;
+
+        animation-duration: calc(var(--time-scale) * var(--duration) / 30);
+        animation-delay: calc(
+          var(--index) * var(--time-scale) * var(--duration) / 30
+        );
+      }
+
+      @media (hover: hover) {
+        &:not(:disabled):hover {
+          background: rgb(var(--blue));
+          color: white;
+        }
+      }
+
+      @media screen and (max-width: 1000px) {
+        width: 65px;
+      }
+
+      @media screen and (max-width: 700px) {
+        width: 30px;
+        height: 55px;
+        font-size: 24px;
+        border-radius: 8px;
+      }
+    }
+
+    @media screen and (max-width: 1000px) {
+      padding: 85px 32px;
+    }
+
+    @media screen and (max-width: 700px) {
+      padding: 85px 25px;
+    }
   }
 
   .menu-items {

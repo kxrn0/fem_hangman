@@ -19,6 +19,7 @@ const SCCard = styled("div")`
     font-size: 134px;
     line-height: 160px;
     letter-spacing: -7px;
+    width: max-content;
 
     @media screen and (max-width: 600px) {
       font-size: 94px;
