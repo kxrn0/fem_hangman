@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   class="icon icon-tabler icon-tabler-stretching"
+   width="24"
+   height="24"
+   viewBox="0 0 24 24"
+   stroke-width="2"
+   stroke="currentColor"
+   fill="none"
+   stroke-linecap="round"
+   stroke-linejoin="round"
+   version="1.1"
+   id="svg4"
+   sodipodi:docname="stick.svg"
+   inkscape:version="1.3.2 (091e20ef0f, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       id="swatch4"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#bb2fb8;stop-opacity:1;"
+         offset="0"
+         id="stop4" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#swatch4"
+       id="linearGradient4"
+       x1="8.5000771"
+       y1="14.250015"
+       x2="19"
+       y2="14.250015"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#swatch4"
+       id="linearGradient5"
+       x1="4"
+       y1="18.75"
+       x2="12"
+       y2="18.75"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#swatch4"
+       id="linearGradient6"
+       x1="14"
+       y1="5"
+       x2="18"
+       y2="5"
+       gradientUnits="userSpaceOnUse" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview4"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="33.541667"
+     inkscape:cx="12"
+     inkscape:cy="12"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg4" />
+  <path
+     stroke="none"
+     d="M0 0h24v24H0z"
+     fill="none"
+     id="path1" />
+  <path
+     d="M16 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"
+     id="path2"
+     style="stroke:url(#linearGradient6)" />
+  <path
+     d="M5 20l5 -.5l1 -2"
+     id="path3"
+     style="stroke:url(#linearGradient5)" />
+  <path
+     d="M18 20v-5h-5.5l2.5 -6.5l-5.5 1l1.5 2"
+     id="path4"
+     style="stroke:url(#linearGradient4)" />
+</svg>
