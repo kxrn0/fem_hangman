@@ -95,9 +95,11 @@ export default function Game(props: Props) {
 
   return (
     <SCGame>
+      {/* remember to REMOVE THIS */}
       <p style={`color: azure; position: fixed; top: 10px; right: 10px;`}>
         {target.word}
       </p>
+      {/* remember to REMOVE THIS */}
       <nav
         class="navbar anime-enter"
         classList={{ "anime-exit": currentPage.name !== page().name }}
