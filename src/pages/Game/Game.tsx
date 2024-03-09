@@ -93,8 +93,7 @@ export default function Game(props: Props) {
       <nav
         class="navbar anime-enter"
         classList={{
-          "anime-exit":
-            currentPage.name !== page().name || gameState() === "loading",
+          "anime-exit": currentPage.name !== page().name,
         }}
       >
         <div class="left">

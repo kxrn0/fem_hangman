@@ -6,7 +6,7 @@ import { JSX } from "solid-js";
 import { useMatch } from "@solidjs/router";
 import { PageContextProvider } from "./context/Page";
 import SCRoot from "./Root.styled";
-import SetPage from "./components/SetPage";
+// import SetPage from "./components/SetPage";
 
 type Props = {
   children?: JSX.Element;
