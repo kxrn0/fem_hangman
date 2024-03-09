@@ -1,7 +1,7 @@
 import { JSX, createSignal } from "solid-js";
-import SCSink from "./Sink.styled.tsx";
-import { Page } from "../../types.ts";
 import { useNavigate } from "@solidjs/router";
+import { Page } from "../../types.ts";
+import SCSink from "./Sink.styled.tsx";
 
 type Props = {
   children: JSX.Element;

@@ -1,10 +1,9 @@
+import { onMount } from "solid-js";
+import { usePageContext, pages } from "../../context/Page.tsx";
 import logo from "../../assets/images/logo.svg";
 import iconPlay from "../../assets/images/icon-play.svg";
 import Sink from "../../components/Sink/Sink.tsx";
-import { usePageContext } from "../../context/Page.tsx";
-import { pages } from "../../types.ts";
 import SCStart from "./Start.styled.tsx";
-import { onMount } from "solid-js";
 
 export default function Start() {
   const [page, setPage, delay] = usePageContext();

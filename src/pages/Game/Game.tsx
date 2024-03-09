@@ -1,35 +1,23 @@
 import { For, createEffect, createSignal, onMount } from "solid-js";
-import SCGame from "./Game.styled.tsx";
 import { SetStoreFunction, createStore } from "solid-js/store";
-import { useLocation, useSearchParams } from "@solidjs/router";
+import { useSearchParams } from "@solidjs/router";
+import { usePageContext, pages } from "../../context/Page.tsx";
+import { Category, Letter, Key, GameState } from "../../types.ts";
 import categories from "../../category_data.ts";
-import { Category, pages } from "../../types.ts";
+import iconMenu from "../../assets/images/icon-menu.svg";
+import iconHeart from "../../assets/images/icon-heart.svg";
 import random from "../../utilities/random.ts";
 import mix from "../../utilities/mix.ts";
 import random_nip from "../../utilities/random_nip.ts";
 import Dialog from "../../components/Dialog/Dialog.tsx";
-import iconMenu from "../../assets/images/icon-menu.svg";
-import iconHeart from "../../assets/images/icon-heart.svg";
 import Card from "./Card/Card.tsx";
 import Sink from "../../components/Sink/Sink.tsx";
-import { usePageContext } from "../../context/Page.tsx";
-
-type Letter = {
-  char: string;
-  guessed: boolean;
-};
-
-type Key = {
-  char: string;
-  clicked: boolean;
-};
+import SCGame from "./Game.styled.tsx";
 
 type Props = {
   seen: string[];
   set_seen: SetStoreFunction<string[]>;
 };
-
-type GameState = "playing" | "loading" | "paused" | "win" | "lose" | "out";
 
 export default function Game(props: Props) {
   const [target, setTarget] = createStore({
@@ -41,9 +29,8 @@ export default function Game(props: Props) {
   const health = () => ((100 * lives()) / 8).toFixed(2);
   const [gameState, setGameState] = createSignal<GameState>("playing");
   const [page, setPage, delay] = usePageContext();
-  const actualDelay = delay * 2;
   const [params] = useSearchParams();
-  const location = useLocation();
+  const actualDelay = delay * 2;
   const currentPage = pages.game;
 
   function init() {
@@ -65,9 +52,17 @@ export default function Game(props: Props) {
 
     setTarget({ word, letters });
     setKeys(keys);
+    setLives(8);
   }
 
-  function play_again() {}
+  function play_again() {
+    setGameState("loading");
+    props.set_seen((prev) => [...prev, target.word]);
+    setTimeout(() => {
+      init();
+      setGameState("playing");
+    }, 1000);
+  }
 
   function select_key(char: string) {
     if (gameState() !== "playing") return;
@@ -95,14 +90,12 @@ export default function Game(props: Props) {
 
   return (
     <SCGame>
-      {/* remember to REMOVE THIS */}
-      <p style={`color: azure; position: fixed; top: 10px; right: 10px;`}>
-        {target.word}
-      </p>
-      {/* remember to REMOVE THIS */}
       <nav
         class="navbar anime-enter"
-        classList={{ "anime-exit": currentPage.name !== page().name }}
+        classList={{
+          "anime-exit":
+            currentPage.name !== page().name || gameState() === "loading",
+        }}
       >
         <div class="left">
           <button
@@ -127,11 +120,17 @@ export default function Game(props: Props) {
       </nav>
       <div
         class="letters anime-enter"
-        classList={{ "anime-exit": currentPage.name !== page().name }}
+        classList={{
+          "anime-exit":
+            currentPage.name !== page().name || gameState() === "loading",
+        }}
       >
         <For each={target.letters}>
           {(letter) => (
-            <p class="bordered letter" classList={{ guessed: letter.guessed }}>
+            <p
+              class="bordered letter fam-nip"
+              classList={{ guessed: letter.guessed }}
+            >
               {letter.guessed ? letter.char : ""}
             </p>
           )}
@@ -141,8 +140,11 @@ export default function Game(props: Props) {
         <For each={keys}>
           {(key, index) => (
             <button
-              class="key anime-enter"
-              classList={{ "anime-exit": currentPage.name !== page().name }}
+              class="key anime-enter fam-nip"
+              classList={{
+                "anime-exit":
+                  currentPage.name !== page().name || gameState() === "loading",
+              }}
               style={{ "--index": `${index()}` }}
               disabled={key.clicked}
               onClick={[select_key, key.char]}

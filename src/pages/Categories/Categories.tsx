@@ -1,10 +1,9 @@
-import Sink from "../../components/Sink/Sink.tsx";
-import { usePageContext } from "../../context/Page.tsx";
-import { pages } from "../../types.ts";
-import SCCategories from "./Categories.styled.tsx";
-import iconBack from "../../assets/images/icon-back.svg";
 import { For } from "solid-js";
+import { usePageContext, pages } from "../../context/Page.tsx";
+import iconBack from "../../assets/images/icon-back.svg";
+import Sink from "../../components/Sink/Sink.tsx";
 import Category from "./Category/Category.tsx";
+import SCCategories from "./Categories.styled.tsx";
 
 export default function Categories() {
   const [page, setPage, delay] = usePageContext();

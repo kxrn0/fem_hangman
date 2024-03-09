@@ -6,8 +6,28 @@ import {
   onMount,
   useContext,
 } from "solid-js";
-import { Page, pages } from "../types";
+import { Page } from "../types";
 import { useMatch } from "@solidjs/router";
+
+const root = "/fem_hangman/";
+export const pages = {
+  start: {
+    name: "start",
+    href: root,
+  },
+  instructions: {
+    name: "instructions",
+    href: `${root}instructions`,
+  },
+  categories: {
+    name: "categories",
+    href: `${root}categories`,
+  },
+  game: {
+    name: "game",
+    href: `${root}game`,
+  },
+};
 
 const PageContext = createContext();
 
@@ -28,30 +48,6 @@ export function PageContextProvider(props: Props) {
   const matchesCats = useMatch(() => pages.categories.href);
   const matchesGame = useMatch(() => pages.game.href);
   const delay = 0.33;
-  const root = "/fem_hangman/";
-  const pageStore = {
-    page,
-    setPage,
-    delay,
-    pages: {
-      start: {
-        name: "start",
-        href: root,
-      },
-      instructions: {
-        name: "instructions",
-        href: `${root}instructions`,
-      },
-      categories: {
-        name: "categories",
-        href: `${root}categories`,
-      },
-      game: {
-        name: "game",
-        href: `${root}game`,
-      },
-    },
-  };
 
   onMount(() => {
     if (matchesStart()) setPage(pages.start);

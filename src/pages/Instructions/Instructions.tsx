@@ -1,10 +1,9 @@
 import { For } from "solid-js";
 import iconBack from "../../assets/images/icon-back.svg";
 import Sink from "../../components/Sink/Sink.tsx";
-import { usePageContext } from "../../context/Page.tsx";
-import { pages } from "../../types.ts";
-import SCInstructions from "./Instructions.styled.tsx";
+import { usePageContext, pages } from "../../context/Page.tsx";
 import Point from "./Point/Point.tsx";
+import SCInstructions from "./Instructions.styled.tsx";
 
 export default function Instructions() {
   const [page, setPage, delay] = usePageContext();

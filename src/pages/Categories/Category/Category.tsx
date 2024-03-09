@@ -1,9 +1,8 @@
-import SCCategory from "./Category.styled.tsx";
-import Sink from "../../../components/Sink/Sink.tsx";
-import { pages } from "../../../types.ts";
-import { usePageContext } from "../../../context/Page.tsx";
 import { createSignal } from "solid-js";
 import { createIntersectionObserver } from "@solid-primitives/intersection-observer";
+import { usePageContext, pages } from "../../../context/Page.tsx";
+import Sink from "../../../components/Sink/Sink.tsx";
+import SCCategory from "./Category.styled.tsx";
 
 type Props = {
   name: string;

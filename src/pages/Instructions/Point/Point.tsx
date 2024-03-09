@@ -1,6 +1,5 @@
 import { createIntersectionObserver } from "@solid-primitives/intersection-observer";
-import { usePageContext } from "../../../context/Page.tsx";
-import { pages } from "../../../types.ts";
+import { usePageContext, pages } from "../../../context/Page.tsx";
 import SCPoint from "./Point.styled.tsx";
 import { createSignal } from "solid-js";
 

@@ -1,24 +1,3 @@
-const root = "/fem_hangman/";
-
-export const pages = {
-  start: {
-    name: "start",
-    href: root,
-  },
-  instructions: {
-    name: "instructions",
-    href: `${root}instructions`,
-  },
-  categories: {
-    name: "categories",
-    href: `${root}categories`,
-  },
-  game: {
-    name: "game",
-    href: `${root}game`,
-  },
-};
-
 export type Page = {
   name: string;
   href: string;
@@ -31,3 +10,21 @@ export type Category =
   | "geography"
   | "manga"
   | "chemistry";
+
+export type Letter = {
+  char: string;
+  guessed: boolean;
+};
+
+export type Key = {
+  char: string;
+  clicked: boolean;
+};
+
+export type GameState =
+  | "playing"
+  | "loading"
+  | "paused"
+  | "win"
+  | "lose"
+  | "out";
