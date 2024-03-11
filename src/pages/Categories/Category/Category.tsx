@@ -13,8 +13,7 @@ type Props = {
 export default function Category(props: Props) {
   const [isVisible, setIsVisible] = createSignal(false);
   const [targets, setTargets] = createSignal<Element[]>([]);
-  const [page, setPage, delay] = usePageContext();
-  const actualDelay = delay * 2;
+  const [, pageObj] = usePageContext();
   const nextPage = {
     ...pages.game,
     href: `${pages.game.href}?category=${props.param}`,
@@ -33,12 +32,12 @@ export default function Category(props: Props) {
 
   return (
     <SCCategory class="category" ref={(element) => setTargets([element])}>
-      <Sink page={nextPage} delay={actualDelay} set_page={setPage}>
+      <Sink page={nextPage}>
         <p
           class="category-button bordered fam-nip content"
           classList={{
             "anime-enter": isVisible(),
-            "anime-exit": page().name !== currentPage.name,
+            "anime-exit": pageObj.page().name !== currentPage.name,
           }}
           style={{ "--index": props.index }}
         >

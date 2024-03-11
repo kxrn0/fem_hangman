@@ -32,9 +32,15 @@ export const pages = {
 const PageContext = createContext();
 
 type PageContextType = [
-  page: Accessor<Page>,
-  setPage: (page: Page) => void,
-  delay: number
+  delay: number,
+  pageObj: {
+    page: Accessor<Page>;
+    set_page: (page: Page) => void;
+  },
+  transObj: {
+    isTrans: Accessor<boolean>;
+    set_is_trans: (isTrans: boolean) => void;
+  }
 ];
 
 type Props = {
@@ -43,6 +49,7 @@ type Props = {
 
 export function PageContextProvider(props: Props) {
   const [page, setPage] = createSignal(pages.start);
+  const [isTrans, setIsTrans] = createSignal(false);
   const matchesStart = useMatch(() => pages.start.href);
   const matchesInstructions = useMatch(() => pages.instructions.href);
   const matchesCats = useMatch(() => pages.categories.href);
@@ -57,7 +64,13 @@ export function PageContextProvider(props: Props) {
   });
 
   return (
-    <PageContext.Provider value={[page, setPage, delay]}>
+    <PageContext.Provider
+      value={[
+        delay,
+        { page, set_page: setPage },
+        { isTrans, set_is_trans: setIsTrans },
+      ]}
+    >
       {props.children}
     </PageContext.Provider>
   );

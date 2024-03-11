@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function Point(props: Props) {
-  const [page] = usePageContext();
+  const [, pageObj] = usePageContext();
   const [isVisible, setIsVisible] = createSignal(false);
   const [targets, setTargets] = createSignal<Element[]>([]);
   const currentPage = pages.instructions;
@@ -31,7 +31,7 @@ export default function Point(props: Props) {
         class="content invisible"
         classList={{
           "anime-enter": isVisible(),
-          "anime-exit": page().name !== currentPage.name,
+          "anime-exit": pageObj.page().name !== currentPage.name,
         }}
       >
         <p class="fs-l">{props.title}</p>

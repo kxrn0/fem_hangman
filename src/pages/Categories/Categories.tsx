@@ -6,9 +6,8 @@ import Category from "./Category/Category.tsx";
 import SCCategories from "./Categories.styled.tsx";
 
 export default function Categories() {
-  const [page, setPage, delay] = usePageContext();
-  const actualDelay = delay * 2;
-  const isCurrent = () => pages.categories.name === page().name;
+  const [, pageObj] = usePageContext();
+  const isCurrent = () => pages.categories.name === pageObj.page().name;
   const cats = [
     { name: "世界の国々", param: "countries" },
     { name: "歴史", param: "history" },
@@ -21,7 +20,7 @@ export default function Categories() {
   return (
     <SCCategories>
       <div class="head anime-enter" classList={{ "anime-exit": !isCurrent() }}>
-        <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+        <Sink page={pages.start}>
           <div class="nav-button">
             <img src={iconBack} alt="back" />
             <div class="screen"></div>

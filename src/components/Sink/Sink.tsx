@@ -2,16 +2,16 @@ import { JSX, createSignal } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 import { Page } from "../../types.ts";
 import SCSink from "./Sink.styled.tsx";
+import { usePageContext } from "../../context/Page.tsx";
 
 type Props = {
   children: JSX.Element;
   page: Page;
-  delay: number;
-  set_page: (page: Page) => void;
 };
 
 export default function Sink(props: Props) {
   const [isDisabled, setIsDisabled] = createSignal(false);
+  const [delay, pageObj, transObj] = usePageContext();
   const navigate = useNavigate();
 
   function handle_click(event: MouseEvent) {
@@ -20,9 +20,13 @@ export default function Sink(props: Props) {
     if (isDisabled()) return;
 
     setIsDisabled(true);
-    props.set_page(props.page);
+    transObj.set_is_trans(true);
+    pageObj.set_page(props.page);
 
-    setTimeout(() => navigate(props.page.href), props.delay * 1000);
+    setTimeout(() => {
+      navigate(props.page.href);
+      transObj.set_is_trans(false);
+    }, delay * 2000);
   }
 
   return (

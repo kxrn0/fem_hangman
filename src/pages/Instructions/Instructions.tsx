@@ -1,13 +1,13 @@
 import { For } from "solid-js";
+import { usePageContext, pages } from "../../context/Page.tsx";
 import iconBack from "../../assets/images/icon-back.svg";
 import Sink from "../../components/Sink/Sink.tsx";
-import { usePageContext, pages } from "../../context/Page.tsx";
 import Point from "./Point/Point.tsx";
 import SCInstructions from "./Instructions.styled.tsx";
 
 export default function Instructions() {
-  const [page, setPage, delay] = usePageContext();
-  const isCurrent = () => pages.instructions.name === page().name;
+  const [, pageObj] = usePageContext();
+  const isCurrent = () => pages.instructions.name === pageObj.page().name;
   const instructions = [
     {
       title: "01",
@@ -28,12 +28,11 @@ export default function Instructions() {
         "You win by guessing all the letters in the word before your health runs out. If the health bar empties before you guess the word, you lose.",
     },
   ];
-  const actualDelay = delay * 2;
 
   return (
     <SCInstructions>
       <div class="head anime-enter" classList={{ "anime-exit": !isCurrent() }}>
-        <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+        <Sink page={pages.start}>
           <div class="nav-button">
             <img src={iconBack} alt="back" />
             <div class="screen"></div>

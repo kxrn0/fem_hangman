@@ -28,9 +28,8 @@ export default function Game(props: Props) {
   const [lives, setLives] = createSignal(8);
   const health = () => ((100 * lives()) / 8).toFixed(2);
   const [gameState, setGameState] = createSignal<GameState>("playing");
-  const [page, setPage, delay] = usePageContext();
+  const [, pageObj] = usePageContext();
   const [params] = useSearchParams();
-  const actualDelay = delay * 2;
   const currentPage = pages.game;
 
   function init() {
@@ -80,8 +79,12 @@ export default function Game(props: Props) {
     }
   }
 
+  function continue_game() {
+    if (gameState() === "paused") setGameState("playing");
+  }
+
   createEffect(() => {
-    if (page().name !== currentPage.name) setGameState("out");
+    if (pageObj.page().name !== currentPage.name) setGameState("out");
   });
 
   onMount(() => {
@@ -93,7 +96,7 @@ export default function Game(props: Props) {
       <nav
         class="navbar anime-enter"
         classList={{
-          "anime-exit": currentPage.name !== page().name,
+          "anime-exit": currentPage.name !== pageObj.page().name,
         }}
       >
         <div class="left">
@@ -121,7 +124,8 @@ export default function Game(props: Props) {
         class="letters anime-enter"
         classList={{
           "anime-exit":
-            currentPage.name !== page().name || gameState() === "loading",
+            currentPage.name !== pageObj.page().name ||
+            gameState() === "loading",
         }}
       >
         <For each={target.letters}>
@@ -142,7 +146,8 @@ export default function Game(props: Props) {
               class="key anime-enter fam-nip"
               classList={{
                 "anime-exit":
-                  currentPage.name !== page().name || gameState() === "loading",
+                  currentPage.name !== pageObj.page().name ||
+                  gameState() === "loading",
               }}
               style={{ "--index": `${index()}` }}
               disabled={key.clicked}
@@ -153,10 +158,7 @@ export default function Game(props: Props) {
           )}
         </For>
       </div>
-      <Dialog
-        isOpen={gameState() === "paused"}
-        set_is_open={() => setGameState("playing")}
-      >
+      <Dialog isOpen={gameState() === "paused"} set_is_open={continue_game}>
         <Card title="Paused">
           <div class="menu-items">
             <button
@@ -165,14 +167,10 @@ export default function Game(props: Props) {
             >
               CONTINUE
             </button>
-            <Sink
-              page={pages.categories}
-              delay={actualDelay}
-              set_page={setPage}
-            >
+            <Sink page={pages.categories}>
               <p class="button-one fam-mouse fs-s bordered">NEW CATEGORY</p>
             </Sink>
-            <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+            <Sink page={pages.start}>
               <p class="button-two fam-mouse fs-s bordered">QUIT GAME</p>
             </Sink>
           </div>
@@ -187,14 +185,10 @@ export default function Game(props: Props) {
             >
               PLAY AGAIN!
             </button>
-            <Sink
-              page={pages.categories}
-              delay={actualDelay}
-              set_page={setPage}
-            >
+            <Sink page={pages.categories}>
               <p class="button-one fam-mouse fs-s bordered">NEW CATEGORY</p>
             </Sink>
-            <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+            <Sink page={pages.start}>
               <p class="button-two fam-mouse fs-s bordered">QUIT GAME</p>
             </Sink>
           </div>
@@ -209,14 +203,10 @@ export default function Game(props: Props) {
             >
               PLAY AGAIN!
             </button>
-            <Sink
-              page={pages.categories}
-              delay={actualDelay}
-              set_page={setPage}
-            >
+            <Sink page={pages.categories}>
               <p class="button-one fam-mouse fs-s bordered">NEW CATEGORY</p>
             </Sink>
-            <Sink page={pages.start} delay={actualDelay} set_page={setPage}>
+            <Sink page={pages.start}>
               <p class="button-two fam-mouse fs-s bordered">QUIT GAME</p>
             </Sink>
           </div>
