@@ -16,14 +16,6 @@ jobs:
         uses: actions/setup-node@v3
       - name: Install dependencies
         run: npm install
-      - name: Configure vite
-        run: |
-          echo 'import { defineConfig } from "vite";
-          import solid from "vite-plugin-solid"; 
-          export default {
-            base: "/${{ github.event.repository.name }}/",
-            plugins: [solid()]
-          }' > vite.config.js
       - name: Build project
         run: npm run build
       - name: Upload Pages artifact
