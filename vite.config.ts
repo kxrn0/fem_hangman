@@ -7,6 +7,7 @@ import type { ManifestOptions, VitePWAOptions } from "vite-plugin-pwa";
 const options: Partial<VitePWAOptions> = {
   mode: "production",
   base: "/fem_hangman/",
+  workbox: { globPatterns: ["**/*"] },
   includeAssets: ["**/*"],
   manifest: {
     name: "Hangman",
