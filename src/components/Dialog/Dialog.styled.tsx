@@ -28,7 +28,6 @@ const SCDialog = styled("div")`
     --y: 100vh;
     transform: translate(0, calc(-1 * var(--y)));
     visibility: hidden;
-    filter: blur(1px);
     position: relative;
 
     &:not(.open).mounted {
@@ -38,13 +37,11 @@ const SCDialog = styled("div")`
         from {
           transform: translate(0, 0);
           visibility: visible;
-          filter: blur(0);
         }
 
         to {
           transform: translate(0, var(--y));
           visibility: hidden;
-          filter: blur(1px);
         }
       }
     }
@@ -56,13 +53,11 @@ const SCDialog = styled("div")`
         from {
           transform: translate(0, calc(-1 * var(--y)));
           visibility: hidden;
-          filter: blur(1px);
         }
 
         to {
           transform: translate(0, 0);
           visibility: visible;
-          filter: blur(0);
           pointer-events: all;
         }
       }

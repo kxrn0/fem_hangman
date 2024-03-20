@@ -356,7 +356,6 @@ const SCRoot = styled("div")`
   .invisible {
     transform: translate(var(--x), var(--y));
     opacity: 0;
-    filter: blur(5px);
   }
 
   /* anime */
@@ -364,20 +363,17 @@ const SCRoot = styled("div")`
   .anime-enter {
     transform: translate(var(--x), var(--y));
     opacity: 0;
-    filter: blur(5px);
     animation: enter-anime calc(var(--duration) * var(--time-scale)) forwards;
 
     @keyframes enter-anime {
       from {
         transform: translate(var(--x), var(--y));
         opacity: 0;
-        filter: blur(5px);
       }
 
       to {
         transform: translate(0, 0);
         opacity: 1;
-        filter: blur(0);
       }
     }
   }
@@ -385,14 +381,12 @@ const SCRoot = styled("div")`
   .anime-exit {
     transform: translate(0, 0);
     opacity: 1;
-    filter: blur(0);
     animation: exit-anime calc(var(--duration) * var(--time-scale)) forwards;
 
     @keyframes exit-anime {
       to {
         transform: translate(var(--x), var(--y));
         opacity: 0;
-        filter: blur(5px);
       }
     }
   }
